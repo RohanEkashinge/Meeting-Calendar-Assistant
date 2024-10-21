@@ -1,0 +1,188 @@
+{
+  "info": {
+    "name": "Meeting Calendar Assistant API",
+    "description": "API for managing meetings and employee calendars.",
+    "version": "1.0.0",
+    "schema": ""
+  },
+  "item": [
+    {
+      "name": "Employees",
+      "item": [
+        {
+          "name": "Create Employee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":\"employee1\",\"name\":\"John Doe\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/employees",
+              "host": [
+                "http://localhost:8080"
+              ],
+              "path": [
+                "api",
+                "employees"
+              ]
+            }
+          },
+          "response": [
+            {
+              "code": 200,
+              "body": "\"Employee created successfully.\""
+            }
+          ]
+        },
+        {
+          "name": "Create Another Employee",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"id\":\"employee2\",\"name\":\"Jonny Eod\"}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/employees",
+              "host": [
+                "http://localhost:8080"
+              ],
+              "path": [
+                "api",
+                "employees"
+              ]
+            }
+          },
+          "response": [
+            {
+              "code": 200,
+              "body": "\"Employee created successfully.\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Meetings",
+      "item": [
+        {
+          "name": "Book a Meeting",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Team Standup\",\"startTime\":\"2024-10-21T09:00:00\",\"endTime\":\"2024-10-21T09:30:00\",\"employee\":{\"id\":\"employee1\"}}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/meetings",
+              "host": [
+                "http://localhost:8080"
+              ],
+              "path": [
+                "api",
+                "meetings"
+              ]
+            }
+          },
+          "response": [
+            {
+              "code": 200,
+              "body": "\"Meeting booked successfully.\""
+            }
+          ]
+        },
+        {
+          "name": "Get Free Slots",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/meetings/free-slots?employeeIds=employee1,employee2&duration=30",
+              "host": [
+                "http://localhost:8080"
+              ],
+              "path": [
+                "api",
+                "meetings",
+                "free-slots"
+              ],
+              "query": [
+                {
+                  "key": "employeeIds",
+                  "value": "employee1,employee2"
+                },
+                {
+                  "key": "duration",
+                  "value": "30"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "code": 200,
+              "body": "[\"2024-10-21T09:30:00\", \"2024-10-21T10:00:00\"]"
+            }
+          ]
+        },
+        {
+          "name": "Check Conflicts",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"title\":\"Client Meeting\",\"startTime\":\"2024-10-21T09:15:00\",\"endTime\":\"2024-10-21T09:45:00\",\"employee\":{\"id\":\"employee1\"}}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/meetings/check-conflicts?participantIds=employee1,employee2",
+              "host": [
+                "http://localhost:8080"
+              ],
+              "path": [
+                "api",
+                "meetings",
+                "check-conflicts"
+              ],
+              "query": [
+                {
+                  "key": "participantIds",
+                  "value": "employee1,employee2"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "code": 200,
+              "body": "[\"employee1\"]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
